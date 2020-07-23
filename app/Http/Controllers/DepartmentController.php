@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Order_detail;
+use App\Department;
+use App\Employee;
 use Illuminate\Http\Request;
 
-class OrderDetailController extends Controller
+class DepartmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class OrderDetailController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Order_detail  $order_detail
+     * @param  \App\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function show(Order_detail $order_detail)
+    public function show(Department $department)
     {
         //
     }
@@ -52,10 +53,10 @@ class OrderDetailController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Order_detail  $order_detail
+     * @param  \App\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function edit(Order_detail $order_detail)
+    public function edit(Department $department)
     {
         //
     }
@@ -64,10 +65,10 @@ class OrderDetailController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Order_detail  $order_detail
+     * @param  \App\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order_detail $order_detail)
+    public function update(Request $request, Department $department)
     {
         //
     }
@@ -75,10 +76,10 @@ class OrderDetailController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Order_detail  $order_detail
+     * @param  \App\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order_detail $order_detail)
+    public function destroy(Department $department)
     {
         //
     }

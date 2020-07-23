@@ -30,9 +30,7 @@
                         <div class="form-group">
                             <label for="image">Image</label>
                             <input type="file" class="form-control"  name="image">
-                            {{--<span class="invalid-feedback" role="alert">
-                                        --}}{{--<strong>{{$message}}</strong>--}}{{--
-                                    </span>--}}
+
                         </div>
 
                         <div class="form-group">

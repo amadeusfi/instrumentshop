@@ -32,6 +32,9 @@ class CreateEmployeesTable extends Migration
             $table->string('email');
             $table->string('image');
 
+            $table->unsignedBigInteger('department_id')->nullable()->index();
+            $table->foreign('department_id')->references('id')->on('employees')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

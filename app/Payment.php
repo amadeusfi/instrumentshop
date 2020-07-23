@@ -11,6 +11,6 @@ class Payment extends Model
 
     public function customer()
     {
-        return $this->hasOne(Customer::class, 'customer_id', 'id');
+        return $this->belongsTo(Customer::class);
     }
 }

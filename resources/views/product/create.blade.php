@@ -13,7 +13,7 @@
                     <div class="card">
                         <div class="card-header">Insert new Products</div>
                         <div class="card-body">
-                            <div class="form-group">
+                               <div class="form-group">
                                 <label for="name">Category</label>
                                 <select name="category" class="form-control @error('category') is-invalid @enderror">
                                     <option value="">Select Category</option>
@@ -40,17 +40,13 @@
                                 <input type="number" name="price"
                                        class="form-control">
                             </div>
-
                             <div class="form-group">
                                 <label for="description">Description</label>
                                 <textarea class="form-control @error('description') is-invalid @enderror" name="description"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="image">Image</label>
-                                <input type="file" class="form-control @error('image') is-invalid @enderror" name="image">
-                                    <span class="invalid-feedback" role="alert">
-                                        {{--<strong>{{$message}}</strong>--}}
-                                    </span>
+                                <input type="file" class="form-control"  name="image">
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-outline-primary" type="submit">

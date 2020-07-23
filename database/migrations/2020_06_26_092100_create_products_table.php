@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->text('description')->nullable();
 
             $table->double('price')->nullable();
+
             $table->string('image')->nullable();
 
             $table->unsignedBigInteger('brand_id')->nullable()->index();/* help the search*/
@@ -27,6 +28,9 @@ class CreateProductsTable extends Migration
 
             $table->unsignedBigInteger('category_id')->nullable()->index();/* help the search*/;
             $table->foreign('category_id')->references('id')->on('products')->onDelete('cascade');
+
+            $table->unsignedBigInteger('order_id')->nullable()->index();/* help the search*/;
+            $table->foreign('order_id')->references('id')->on('products')->onDelete('cascade');
 
             $table->timestamps();
         });

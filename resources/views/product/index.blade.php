@@ -37,7 +37,7 @@
                             @if(count($products)>0) <!--check if there are prod to display-->
                             @foreach($products as $key=>$product) <!--getting from db $keys-->
                             <tr>
-                                <td><img src="{{asset('images')}}/{{$product->image}}" width="50" height="50"></td>
+                                <td><img src="{{asset('images')}}/{{$product->image}}" width="60" height="60"></td>
                                 <td>{{$product->name}}</td>
                                 <td>€ {{$product->price}}</td>
                                 <td>{{$product->brand_id}}</td>

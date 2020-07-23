@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Category;
+use App\Brand;
 
 class ProductController extends Controller
 {
@@ -32,14 +33,14 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $this->validate($request, [
             'name'=>'required',
-            'price'=>'required|integer',
+            'price'=>'required',
             'brand' => 'required',
             'category'=>'required',
             'description'=>'required',
@@ -47,29 +48,27 @@ class ProductController extends Controller
         ]);
 
         $image = $request->file('image');  /*nombre de la variable en controler.create*/
-        $name = time().'.'.$image->getClientOriginalExtension(
-            );
+        $name = time().'.'.$image->getClientOriginalExtension();
         $destinationPath = public_path('/images');
         $image->move($destinationPath,$name);
 
         Product::create([
             'name'=>$request->get('name'),
             'price'=>$request->get('price'),
-            'brand'=>$request->get('brand'),
-            'category_id'=>$request->get('category'),
             'brand_id'=>$request->get('brand'),
+            'category_id'=>$request->get('category'),
             'description'=>$request->get('description'),
             'image'=>$name
-
-
         ]);
-        return redirect()->back()->with('message', trans('product created'));
+
+
+        return redirect()->route('product.index')->with('message', trans('product created'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param \App\Product $product
      * @return \Illuminate\Http\Response
      */
     public function show(Product $product)
@@ -80,7 +79,7 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param \App\Product $product
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -92,28 +91,41 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id/*Product $product*/)
     {
-        $data = $this->validate($request, [
+        $this->validate($request, [
             'name'=>'required',
+            'price'=>'required|integer',
+            'brand' => 'required',
+            'category'=>'required',
             'description' => 'required',
-            'price' => 'required|integer',
-            'category' => 'required',
-            'image' => 'mimes:png,jpg,jpeg'
+            'image' => 'mimes:png,jpg,jpeg',
         ]);
-
-
+        $product = Product::find($id);
         $name = $product->image;
-      /*take a look in storage*/
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/images');
+            $image->move($destinationPath, $name);
+        }
 
-        $product->update($data);
-
-        return redirect()->route('product.index')->with('message', trans('app.test') );
+        $product->name = $request->get('name'); //key name is from the form and category->name is db
+        $product->price = $request->get('price');
+        $product->brand_id = $request->get('brand');
+        $product->category_id = $request->get('category');
+        $product->description = $request->get('description');
+        $product->image = $name;
+        $product->save();
+        return redirect()->route('product.index')->with('message', trans('app.upproduct'));
     }
+
+
+
     /**
      * Remove the specified resource from storage.
      *
@@ -124,7 +136,7 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product->delete();
-        return redirect()->route('product.index')->with('message', trasn('app.test'));
+        return redirect()->route('product.index')->with('message', trans('app.delproduct'));
 
     }
      /*for the public, should get it in Vue.js*/
